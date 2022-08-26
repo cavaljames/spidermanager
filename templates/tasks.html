@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>任务管理</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                任务管理 &nbsp;&nbsp;
+                <button type="button" class="btn btn-success goto-add-btn">
+                    新增主页
+                </button>
+                <button type="button" class="btn btn-success goto-stats-btn">
+                    主页统计
+                </button>
+                <div id="choiceWindow">
+                    <label id="x" style="position: absolute;top:2px;left: 95%;font-size: 25px;">x</label>
+                    <form>
+                        <label>主页id(多个主页id用逗号分隔)：</label>
+                        <br>
+                        <textarea id="page-ids" class="form-control mr-sm-2" type="text" placeholder="page_id"></textarea>
+                        <br>
+                        <br>
+                    </form>
+
+                    <button type="button" class="btn btn-success add-btn" style="padding-bottom: 10px;">
+                        提交
+                    </button>
+                </div>
+                <div id="backGround"></div>
+
+            </h3>
+
+            <table id="data-table" class="table table-sm table-bordered" style="font-size: 0.8rem;">
+                <thead>
+                <tr>
+                    <th>
+                        任务id
+                    </th>
+                    <th>
+                        主页id
+                    </th>
+                    <th>
+                        品牌
+                    </th>
+                    <th>
+                        主页名
+                    </th>
+                    <th>
+                        任务类型
+                    </th>
+                    <th>
+                        任务数
+                    </th>
+                    <th>
+                        成功数
+                    </th>
+                    <th>
+                        失败数
+                    </th>
+                    <th style="width: 15%">
+                        完成度
+                    </th>
+                    <th>
+                        任务状态
+                    </th>
+                    <th>
+                        停用状态
+                    </th>
+                    <th>
+                        创建时间
+                    </th>
+                    <th>
+                        更新时间
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search">
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <!--任务类型-->
+                        <select id="type_selection" class="selectpicker">
+                            <option value="All">All</option>
+                            <option value="Page" selected>Page</option>
+                            <option value="Post">Post</option>
+                            <option value="Comment">Comment</option>
+                            <option value="Like">Like</option>
+                            <option value="Share">Share</option>
+                            <option value="User">User</option>
+                            <option value="User_Like_Id">User_Like_Id</option>
+                            <option value="User_Like_Name">User_Like_Name</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <!--任务状态-->
+                        <select id="status_selection" class="selectpicker">
+                            <option value="ALL">ALL</option>
+                            <option value="READY" selected>READY</option>
+                            <option value="RUNNING">RUNNING</option>
+                            <option value="FINISH">FINISH</option>
+                            <option value="STOP">STOP</option>
+                            <option value="ERROR">ERROR</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--停用状态-->
+                        <select id="disable_selection" class="selectpicker">
+                            <option value="ALL" selected>所有</option>
+                            <option value="0">启用</option>
+                            <option value="1">停用</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <!--任务状态-->
+                        <select id="order" class="selectpicker">
+                            <option value="step" selected>任务顺序</option>
+                            <option value="update_time">最近更新</option>
+                            <option value="task_create_time">最近创建</option>
+                        </select>
+
+                        <button id="search_submit" type="button" class="btn btn-success">
+                            Submit
+                        </button>
+                    </td>
+                </tr>
+
+                {% for task in tasks%}
+                <tr>
+                    <td>
+                        {{ task.id }}
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="clickRootId({{ task.root_id }});">{{ task.root_id }}</a>
+                        {% if task.task_type == 'Page' %}
+                        <br>
+                        <label>job_id: {{ task.job_id }}</label>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if task.page_name_zh != None %}
+                        {{ task.page_name_zh }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if task.page_username != None %}
+                        <a href="{{ task.page_link }}">{{ task.page_username }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if task.task_type == 'Post' %}
+                        <a href="javascript:void(0);" class="modify-post" data-task-id="{{ task.task_id }}">{{ task.task_type }}</a>
+                        <div id="choicePost-{{ task.task_id }}" class="choiceWindowPost">
+                            <label id="x_post-{{ task.task_id }}" style="position: absolute;top:2px;left: 95%;font-size: 25px;"
+                                   data-task-id="{{ task.task_id }}">x</label>
+                            <form>
+                                <label>修改Post任务采集前num天【{"params": "{'start_time': num}"}】：</label>
+                                <br>
+                                <label>当前天数num：{{ task.time_start }}</label>
+                                <br>
+                                <input id="post-task-{{ task.task_id }}" class="form-control mr-sm-2 post-param" type="text" placeholder="num">
+                                <br>
+                                <label class="tip-label">修改后请重置该任务</label>
+                                <br>
+                            </form>
+
+                            <button type="button" class="btn btn-success do-modify" style="padding-bottom: 10px;" task="{{ task.task_id }}">
+                                提交
+                            </button>
+                        </div>
+                        <div id="backGroundPost"></div>
+                        {% elif task.task_type == 'Page' %}
+                        <a href="javascript:void(0);" onclick="clickJobId('{{ task.job_id }}');" data-job-id="{{ task.job_id }}" id="page_job_id">{{ task.task_type }}</a>
+                        {% else %}
+                        {{ task.task_type }}
+                        {% endif %}
+                        <br>
+                        {% with params = task.params %}
+                        <label>{{ params | str_to_obj('task_start_time') | cut_date }} ~
+                            {{ params | str_to_obj('task_end_time') | cut_date }}</label>
+                        {% endwith %}
+                    </td>
+                    <td>
+                        {{ task.total }}
+                    </td>
+                    <td>
+                        {{ task.success }}
+                    </td>
+                    <td>
+                        {{ task.fail }}
+                    </td>
+                    <td>
+                        <div class="progress" id="bar__{{ task.task_id }}">
+                            <div id="success-bar__{{ task.task_id }}" class="progress-bar progress-bar-animated progress-bar-striped"
+                                 style="width: {{ '%.4f' | format(task.success*100/task.total) }}%">
+                            </div>
+
+                            <div id="fail-bar__{{ task.task_id }}" class="progress-bar-1 progress-bar-animated progress-bar-striped"
+                                 style="width: {{ '%.4f' | format(task.fail*100/task.total) }}%">
+                            </div>
+                        </div>
+                        <div id="success-tip__{{ task.task_id }}" class="tip">成功 {{ '%.1f' | format(task.success*100/task.total) }}%</div>
+                        <div id="fail-tip__{{ task.task_id }}" class="tip">失败 {{ '%.1f' | format(task.fail*100/task.total) }}%</div>
+                    </td>
+                    <td>
+                        <img class="status-icon" src="{{url_for('static', filename='img/'+task.task_status+'.png')}}"/>
+                        <label>{{ task.task_status }}</label>
+                    </td>
+                    <td style="align: center;">
+                        {% if task.disable == 1 %}
+                        <img class="disable-icon" src="{{url_for('static', filename='img/ic_stop.png')}}"/>
+                        <label>停用</label>
+                        {% else %}
+                        <img class="disable-icon" src="{{url_for('static', filename='img/ic_start.png')}}"/>
+                        <label>启用</label>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ task.ct }}
+                    </td>
+                    <td>
+                        {{ task.ut }}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success update-btn" value="{{ task.task_id }}">
+                            更新
+                        </button>
+                        <button type="button" class="btn btn-success start-btn" value="{{ task.task_id }}">
+                            启动
+                        </button>
+                        <button type="button" class="btn btn-success reset-btn" value="{{ task.task_id }}">
+                            重置
+                        </button>
+                        {% if task.task_type == 'Page' %}
+                        <button type="button" class="btn btn-warning clear-btn" value="{{ task.job_id }}">
+                            删除
+                        </button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+
+<!-- 加载中遮罩 -->
+<div id="light" class="white_content">
+    <font size="5">加载中...<br></font>
+    <img src="{{url_for('static', filename='img/loading.gif')}}" width='220px' height='190px'/>
+</div>
+<div id="fade" class="black_overlay"></div>
+</body>
+</html>

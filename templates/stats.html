@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>任务管理</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                主页统计 &nbsp;&nbsp;
+                <button type="button" class="btn btn-success goto-task-btn">
+                    主页任务
+                </button>
+            </h3>
+
+            <table id="data-table" class="table table-sm table-bordered" style="font-size: 0.8rem;">
+                <thead>
+                <tr>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        主页id
+                    </th>
+                    <th>
+                        品牌
+                    </th>
+                    <th>
+                        主页名
+                    </th>
+                    <th>
+                        所属分组
+                    </th>
+                    <th>
+                        帖子数
+                    </th>
+                    <th>
+                        评论数
+                    </th>
+                    <th>
+                        点赞数
+                    </th>
+                    <th>
+                        粉丝数
+                    </th>
+                    <th>
+                        创建时间
+                    </th>
+                    <th>
+                        更新时间
+                    </th>
+<!--                    <th>-->
+<!--                        操作-->
+<!--                    </th>-->
+                </tr>
+                <tr>
+                    <th>
+                        0
+                    </th>
+                    <th>
+                        全部
+                    </th>
+                    <th>
+                        全部
+                    </th>
+                    <th>
+                        全部
+                    </th>
+                    <th>
+                        全部
+                    </th>
+                    <th>
+                        {{ total.post_count }}
+                    </th>
+                    <th>
+                        {{ total.comment_count }}
+                    </th>
+                    <th>
+                        {{ total.like_count }}
+                    </th>
+                    <th>
+                        {{ total.fans_count }}
+                    </th>
+                    <th>
+                        {{ total.now_time }}
+                    </th>
+                    <th>
+                        {{ total.now_time }}
+                    </th>
+<!--                    <th>-->
+<!--                        操作-->
+<!--                    </th>-->
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks%}
+                <tr>
+                    <td>
+                        {{ loop.index }}
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="clickRootId('{{ task.page_id }}');">{{ task.page_id }}</a>
+                    </td>
+                    <td>
+                        {% if task.page_name_zh != None %}
+                        {{ task.page_name_zh }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if task.page_username != None %}
+                        <a href="{{ task.page_link }}">{{ task.page_username }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ task.group_name }}
+                    </td>
+                    <td>
+                        {{ task.post_count }}
+                    </td>
+                    <td>
+                        {{ task.comment_count }}
+                    </td>
+                    <td>
+                        {{ task.like_count }}
+                    </td>
+                    <td>
+                        {{ task.fans_count }}
+                    </td>
+                    <td>
+                        {{ task.ct }}
+                    </td>
+                    <td>
+                        {{ task.ut }}
+                    </td>
+<!--                    <td>-->
+<!--                        <button type="button" class="btn btn-success update-btn" value="{{ task.task_id }}">-->
+<!--                            更新-->
+<!--                        </button>-->
+<!--                    </td>-->
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+
+</body>
+</html>

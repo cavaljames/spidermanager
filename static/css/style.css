@@ -1,0 +1,147 @@
+# Empty CSS file for your own CSS
+
+#data-table {
+    font-size: 12px;
+}
+
+
+.btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem ;
+}
+
+
+.black_overlay{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 1800px;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.6;
+    opacity:.60;
+    filter: alpha(opacity=66);
+}
+
+.white_content {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 35%;
+    height: 40%;
+    padding: 20px;
+    border: 8px solid #0097FF;
+    background-color: white;
+    text-align: center;
+    z-index:1002;
+    overflow: auto;
+}
+
+.progress-bar-1 {
+  height: 1rem;
+  color: #fff;
+  background-color: #FF4D0F;
+}
+
+.tip {
+    width:100px;
+    height:40px;
+    display:none;
+    background-color:#f6f7f7;
+    color:#333333;
+    line-height:18px;
+    border:1px solid #e1e3e2;
+    padding:5px;
+}
+
+
+#choiceWindow {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 30%;
+    padding: 20px;
+    border: 3px solid #ccc;
+    background-color: white;
+    z-index:2;
+    overflow: auto;
+}
+#backGround {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 3000px;
+    background-color: black;
+    z-index:1;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=88);
+}
+#x:hover {cursor: pointer;color: rgb(55,198,192);}
+
+
+
+.choiceWindowPost {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 30%;
+    padding: 20px;
+    border: 3px solid #ccc;
+    background-color: white;
+    z-index:2;
+    overflow: auto;
+}
+#backGroundPost {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 3000px;
+    background-color: black;
+    z-index:1;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=88);
+}
+
+label[id^="x_post-"]:hover {cursor: pointer;color: rgb(55,198,192);}
+
+
+.tip-label {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.disable-icon {
+    width: 23px;
+    height: 23px;
+    vertical-align: middle;
+}
+
+.status-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.btn-warning {
+  color: #fff;
+  background-color: #BA0606;
+  border-color: #A70000;
+}
+
+.btn-warning:hover {
+  color: #fff;
+  background-color: #DF0000;
+  border-color: #CF0000;
+}
